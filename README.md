@@ -18,9 +18,7 @@ To building Simple WebRTC video, voice, and data channels through peer-to-peer W
 
 ## Example Source Codes
 - [React Native](example)
-- [Node Js Server](example/server)
-- [React Js](example/reactjs)
-- [Live Server](https://meet-app-video.herokuapp.com)
+- [Live socket Server](https://meet-app-video.herokuapp.com)
 
 ## Installation
 
@@ -46,8 +44,6 @@ This example create two peers **in the same page**.
 ### data channels
 
 ```js
-var Peer = require('simple-peer')
-
 import RNSimplePeer from "react-native-simple-peer";
 
 const peer1 = new RNSimplePeer({ initiator: true })
@@ -108,15 +104,10 @@ function gotMedia (stream) {
 
   peer2.on('stream', stream => {
     // got remote video stream, now let's show it in a video tag
-    var video = document.querySelector('video')
-
-    if ('srcObject' in video) {
-      video.srcObject = stream
-    } else {
-      video.src = window.URL.createObjectURL(stream) // for older browsers
-    }
-
-    video.play()
+        let peerStream = stream
+        if (stream.currentTarget && stream.currentTarget._remoteStreams) {
+            peerStream = stream.currentTarget._remoteStreams[0];
+       }
   })
 }
 ```
