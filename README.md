@@ -123,7 +123,7 @@ key props |  type | defualts  | descriptions
 initiator | boolean | false | set to `true` if this is the initiating peer
 channelConfig | RTCDataChannelInit/undefined | {} | custom webrtc data channel configuration
 channelName | string/undefined | Random String | custom webrtc data channel name
-config | RTCConfiguration/undefined | { } | custom webrtc configuration 
+config | RTCConfiguration/undefined | { iceServers: [ { urls: [ 'stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'] } ], sdpSemantics: 'unified-plan'} | custom webrtc configuration 
 offerOptions | RTCOfferOptions/undefined | {} | custom offer options
 answerOptions | RTCAnswerOptions/undefined | {} | custom answer options
 sdpTransform | Function | (instance, sdp) => {} | function to transform the generated SDP signaling data 
