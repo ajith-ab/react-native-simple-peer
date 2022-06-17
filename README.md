@@ -2,7 +2,6 @@
 
 To building Simple WebRTC video, voice, and data channels through peer-to-peer WebRTC-based mobile Application
 
-
 ## features
 
 - concise, **node.js style** API for [WebRTC](https://en.wikipedia.org/wiki/WebRTC)
@@ -45,9 +44,10 @@ This example create two peers **in the same page**.
 
 ```js
 import RNSimplePeer from "react-native-simple-peer";
+import { mediaDevices, RTCPeerConnection, RTCIceCandidate, RTCSessionDescription, } from "react-native-webrtc"
 
-const peer1 = new RNSimplePeer({ initiator: true })
-const peer2 = new RNSimplePeer()
+const peer1 = new RNSimplePeer({ initiator: true, webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription  })
+const peer2 = new RNSimplePeer({ webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription } })
 
 peer1.on('signal', data => {
   // when peer1 has signaling data, give it to peer2 somehow
@@ -76,7 +76,7 @@ Video/voice is also super simple! In this example, peer1 sends video to peer2.
 
 ```js
 import RNSimplePeer from "react-native-simple-peer";
-import { mediaDevices } from "react-native-webrtc"
+import { mediaDevices, RTCPeerConnection, RTCIceCandidate, RTCSessionDescription, } from "react-native-webrtc"
 
 // get video/voice stream
   mediaDevices.getUserMedia({
@@ -91,8 +91,9 @@ import { mediaDevices } from "react-native-webrtc"
         }).then(gotMedia).catch(() => {})
 
 function gotMedia (stream) {
-  var peer1 = new RNSimplePeer({ initiator: true, stream: stream })
-  var peer2 = new RNSimplePeer()
+  var peer1 = new RNSimplePeer({ initiator: true, stream: stream, webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription } });
+
+  var peer2 = new RNSimplePeer({ webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription } })
 
   peer1.on('signal', data => {
     peer2.signal(data)
@@ -217,8 +218,8 @@ For clarity, here is the code to connect 3 peers together:
 
 ```js
 // These are peer1's connections to peer2 and peer3
-var peer2 = new RNSimplePeer({ initiator: true })
-var peer3 = new RNSimplePeer({ initiator: true })
+var peer2 = new RNSimplePeer({ initiator: true, webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription } })
+var peer3 = new RNSimplePeer({ initiator: true, webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription } })
 
 peer2.on('signal', data => {
   // send this signaling data to peer2 somehow
@@ -249,8 +250,8 @@ peer3.on('data', data => {
 
 ```js
 // These are peer2's connections to peer1 and peer3
-var peer1 = new RNSimplePeer()
-var peer3 = new RNSimplePeer({ initiator: true })
+var peer1 = new RNSimplePeer({ webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription } })
+var peer3 = new RNSimplePeer({ initiator: true, webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription } })
 
 peer1.on('signal', data => {
   // send this signaling data to peer1 somehow
@@ -281,8 +282,8 @@ peer3.on('data', data => {
 
 ```js
 // These are peer3's connections to peer1 and peer2
-var peer1 = new RNSimplePeer()
-var peer2 = new RNSimplePeer()
+var peer1 = new RNSimplePeer({webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription } })
+var peer2 = new RNSimplePeer({webRTC: { RTCPeerConnection,  RTCIceCandidate, RTCSessionDescription } })
 
 peer1.on('signal', data => {
   // send this signaling data to peer1 somehow
