@@ -51,8 +51,10 @@
     "@react-native-community/eslint-config": "^2.0.0",
     "@release-it/conventional-changelog": "^2.0.0",
     "@types/jest": "^26.0.0",
+    "@types/randombytes": "^2.0.0",
     "@types/react": "^16.9.19",
     "@types/react-native": "0.62.13",
+    "@types/readable-stream": "^2.3.13",
     "commitlint": "^11.0.0",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^7.0.0",
@@ -69,7 +71,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-webrtc": "*"
   },
   "jest": {
     "preset": "react-native",
@@ -143,5 +146,12 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "err-code": "^3.0.1",
+    "events": "^3.3.0",
+    "queue-microtask": "^1.2.3",
+    "react-native-webrtc": "*"
   }
 }
